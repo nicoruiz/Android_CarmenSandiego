@@ -1,5 +1,6 @@
 package com.uis.carmensandiego.carmensandiego;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.telecom.Call;
@@ -10,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uis.carmensandiego.carmensandiego.adapter.ConexionesAdapter;
@@ -41,12 +44,16 @@ public class ViajarFragment extends Fragment {
 
         llenarConexiones(view);
 
+        //Listener para boton viajar
         final ListView lv = (ListView) view.findViewById(R.id.listConexiones);
         //NO ANDA
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String conexionSeleccionada = (String) (lv.getItemAtPosition(position));
+                String conexionSeleccionada =  lv.getItemAtPosition(position).toString();
+                /*Toast toastViajar = Toast.makeText(getContext(), conexionSeleccionada, Toast.LENGTH_SHORT);
+                toastViajar.setGravity(Gravity.NO_GRAVITY, 0, 0);
+                toastViajar.show();*/
                 viajar(conexionSeleccionada);
             }
         });
@@ -61,7 +68,6 @@ public class ViajarFragment extends Fragment {
         ConexionesAdapter adapter = new ConexionesAdapter(getActivity(),conexionesNombre);
         lvConexiones.setAdapter(adapter);
     }
-
 
     public List<String> getNombreConexiones(List<Pais> pais){
         List<String> nombreConexiones = new ArrayList<>();
@@ -86,13 +92,11 @@ public class ViajarFragment extends Fragment {
         int idPaisSeleccionado = getIdPais(caso.getPais().getConexiones(), nombrePaisSeleccionado);
 
         CarmenSanDiegoService carmenSanDiegoService = new Connection().getService();
-        Viajar viajarRequest = new Viajar(caso.getId(), idPaisSeleccionado);
+        Viajar viajarRequest = new Viajar(idPaisSeleccionado, caso.getId());
         carmenSanDiegoService.viajar(viajarRequest, new Callback<Caso>() {
             @Override
             public void success(Caso caso, Response response) {
-                Toast toastOrdenEmitida = Toast.makeText(getContext(), "Conexion: "+ nombrePaisSeleccionado, Toast.LENGTH_SHORT);
-                toastOrdenEmitida.setGravity(Gravity.NO_GRAVITY, 0, 0);
-                toastOrdenEmitida.show();
+                actualizarDatos(caso);
             }
 
             @Override
@@ -101,6 +105,17 @@ public class ViajarFragment extends Fragment {
                 error.printStackTrace();
             }
         });
+    }
+
+    public void actualizarDatos(Caso caso) {
+        //Seteo el nuevo caso que me devuelve viajar
+        ((MainActivity) getActivity()).setCaso(caso);
+        //Actualizo datos
+        ((TextView) getActivity().findViewById(R.id.pais_actual)).setText("Estas en " + caso.getPais().getNombre());
+        //Muestro un toast
+        Toast toastViajar = Toast.makeText(getContext(), "Viajaste a: " + caso.getPais().getNombre(), Toast.LENGTH_SHORT);
+        toastViajar.setGravity(Gravity.NO_GRAVITY, 0, 0);
+        toastViajar.show();
 
     }
 }

@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.uis.carmensandiego.carmensandiego.R;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class LugaresAdapter extends ArrayAdapter<String> {
@@ -25,8 +27,8 @@ public class LugaresAdapter extends ArrayAdapter<String> {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View item = inflater.inflate(R.layout.row_pistas, null);
 
-        Button buttonLugar = (Button) item.findViewById(R.id.button_lugar);
-        buttonLugar.setText(lugares.get(position));
+        TextView lugar = (TextView) item.findViewById(R.id.lugar);
+        lugar.setText(lugares.get(position));
 
         return item;
     }

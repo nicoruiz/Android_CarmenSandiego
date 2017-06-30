@@ -25,8 +25,8 @@ public class ConexionesAdapter extends ArrayAdapter<String> {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View item = inflater.inflate(R.layout.row_viajar, null);
 
-        Button buttonConexiones = (Button) item.findViewById(R.id.button_conexion);
-        buttonConexiones.setText(conexiones.get(position));
+        TextView conexion = (TextView) item.findViewById(R.id.conexion);
+        conexion.setText(conexiones.get(position));
 
         return item;
     }

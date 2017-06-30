@@ -88,4 +88,8 @@ public class MainActivity extends AppCompatActivity {
     public Caso getCaso() {
         return this.caso;
     }
+
+    public void setCaso(Caso caso){
+        this.caso = caso;
+    }
 }
