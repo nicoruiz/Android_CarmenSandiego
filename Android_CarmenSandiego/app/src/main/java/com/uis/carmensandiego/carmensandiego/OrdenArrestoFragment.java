@@ -110,10 +110,10 @@ public class OrdenArrestoFragment extends Fragment {
         CarmenSanDiegoService carmenSanDiegoService = new Connection().getService();
         Caso caso = ((MainActivity) getActivity()).getCaso();
         OrdenEmitida ordenEmitidaBody = new OrdenEmitida(idVillanoSeleccionado, caso.getId());
-        carmenSanDiegoService.emitirOrdenPara(ordenEmitidaBody, new Callback<Caso>() {
+        carmenSanDiegoService.emitirOrdenPara(ordenEmitidaBody, new Callback<String>() {
             @Override
-            public void success(Caso caso, Response response) {
-                procesarOrdenEmitida(caso, nombreVillanoSeleccionado);
+            public void success(String okMsg, Response response) {
+                procesarOrdenEmitida(okMsg, nombreVillanoSeleccionado);
             }
 
             @Override
@@ -124,9 +124,9 @@ public class OrdenArrestoFragment extends Fragment {
         });
     }
 
-    public void procesarOrdenEmitida(Caso caso, String nombreVillanoSeleccionado) {
+    public void procesarOrdenEmitida(String okMsg, String nombreVillanoSeleccionado) {
         ((TextView) getActivity().findViewById(R.id.orden_arresto)).setText("Orden de arresto contra: " + nombreVillanoSeleccionado);
-        Toast toastOrdenEmitida = Toast.makeText(getContext(), "Orden emitida correctamente contra: "+nombreVillanoSeleccionado, Toast.LENGTH_SHORT);
+        Toast toastOrdenEmitida = Toast.makeText(getContext(), okMsg + nombreVillanoSeleccionado, Toast.LENGTH_SHORT);
         toastOrdenEmitida.setGravity(Gravity.NO_GRAVITY, 0, 0);
         toastOrdenEmitida.show();
     }

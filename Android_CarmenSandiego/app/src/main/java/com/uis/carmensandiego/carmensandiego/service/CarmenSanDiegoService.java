@@ -28,7 +28,7 @@ public interface CarmenSanDiegoService {
     void getPista(@Path("casoId") int idCaso, @Query("nombreLugar") String lugar, Callback<String> callback);
 
     @POST("/emitirOrden")
-    void emitirOrdenPara(@Body OrdenEmitida ordenEmitida, Callback<Caso> callback);
+    void emitirOrdenPara(@Body OrdenEmitida ordenEmitida, Callback<String> callback);
 
     @POST("/viajar")
     void viajar(@Body Viajar viajar, Callback<Caso> callback);

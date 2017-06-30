@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.uis.carmensandiego.carmensandiego.R;
@@ -22,10 +23,10 @@ public class LugaresAdapter extends ArrayAdapter<String> {
 
     public View getView(int position, View convertView, ViewGroup parent){
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View item = inflater.inflate(R.layout.fragment_pistas, null);
+        View item = inflater.inflate(R.layout.row_pistas, null);
 
-        TextView textNombreLugar = (TextView) item.findViewById(R.id.lugar);
-        textNombreLugar.setText(lugares.get(position));
+        Button buttonLugar = (Button) item.findViewById(R.id.button_lugar);
+        buttonLugar.setText(lugares.get(position));
 
         return item;
     }

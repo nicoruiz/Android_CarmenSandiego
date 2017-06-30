@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.uis.carmensandiego.carmensandiego.R;
@@ -24,8 +25,8 @@ public class ConexionesAdapter extends ArrayAdapter<String> {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View item = inflater.inflate(R.layout.row_viajar, null);
 
-        TextView textConexiones = (TextView) item.findViewById(R.id.conexion);
-        textConexiones.setText(conexiones.get(position));
+        Button buttonConexiones = (Button) item.findViewById(R.id.button_conexion);
+        buttonConexiones.setText(conexiones.get(position));
 
         return item;
     }
