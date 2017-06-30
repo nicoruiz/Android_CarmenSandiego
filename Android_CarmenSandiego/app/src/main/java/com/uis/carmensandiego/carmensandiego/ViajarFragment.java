@@ -112,6 +112,7 @@ public class ViajarFragment extends Fragment {
         ((MainActivity) getActivity()).setCaso(caso);
         //Actualizo datos
         ((TextView) getActivity().findViewById(R.id.pais_actual)).setText("Estas en " + caso.getPais().getNombre());
+        llenarConexiones(getView());
         //Muestro un toast
         Toast toastViajar = Toast.makeText(getContext(), "Viajaste a: " + caso.getPais().getNombre(), Toast.LENGTH_SHORT);
         toastViajar.setGravity(Gravity.NO_GRAVITY, 0, 0);
