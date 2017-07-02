@@ -42,18 +42,14 @@ public class ViajarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_viajar, container, false);
 
-        llenarConexiones(view);
+        llenarVistaConexiones(view);
 
         //Listener para boton viajar
         final ListView lv = (ListView) view.findViewById(R.id.listConexiones);
-        //NO ANDA
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String conexionSeleccionada =  lv.getItemAtPosition(position).toString();
-                /*Toast toastViajar = Toast.makeText(getContext(), conexionSeleccionada, Toast.LENGTH_SHORT);
-                toastViajar.setGravity(Gravity.NO_GRAVITY, 0, 0);
-                toastViajar.show();*/
                 viajar(conexionSeleccionada);
             }
         });
@@ -61,12 +57,27 @@ public class ViajarFragment extends Fragment {
         return view;
     }
 
-    public void llenarConexiones(View view){
+    public void llenarVistaConexiones(View view){
         Caso caso = ((MainActivity) getActivity()).getCaso();
+        //Conexiones
         ListView lvConexiones = (ListView) view.findViewById(R.id.listConexiones);
         List<String> conexionesNombre = this.getNombreConexiones(caso.getPais().getConexiones());
-        ConexionesAdapter adapter = new ConexionesAdapter(getActivity(),conexionesNombre);
+        ConexionesAdapter adapter = new ConexionesAdapter(getActivity(), conexionesNombre);
         lvConexiones.setAdapter(adapter);
+
+        //Destinos recorridos
+        ListView lvRecorridos = (ListView) view.findViewById(R.id.destinosRecorridos);
+        List<String> destinosRecorridos = caso.getPaisesVisitados();
+        ArrayAdapter<String> destinosRecorridosAdapter =
+                new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, destinosRecorridos);
+        lvRecorridos.setAdapter(destinosRecorridosAdapter);
+
+        //Destinos fallidos
+        ListView lvFallidos = (ListView) view.findViewById(R.id.destinosFallidos);
+        List<String> destinosFallidos = caso.getPaisesFallidos();
+        ArrayAdapter<String> destinosFallidosAdapter =
+                new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, destinosFallidos);
+        lvFallidos.setAdapter(destinosFallidosAdapter);
     }
 
     public List<String> getNombreConexiones(List<Pais> pais){
@@ -112,7 +123,7 @@ public class ViajarFragment extends Fragment {
         ((MainActivity) getActivity()).setCaso(caso);
         //Actualizo datos
         ((TextView) getActivity().findViewById(R.id.pais_actual)).setText("Estas en " + caso.getPais().getNombre());
-        llenarConexiones(getView());
+        llenarVistaConexiones(getView());
         //Muestro un toast
         Toast toastViajar = Toast.makeText(getContext(), "Viajaste a: " + caso.getPais().getNombre(), Toast.LENGTH_SHORT);
         toastViajar.setGravity(Gravity.NO_GRAVITY, 0, 0);
