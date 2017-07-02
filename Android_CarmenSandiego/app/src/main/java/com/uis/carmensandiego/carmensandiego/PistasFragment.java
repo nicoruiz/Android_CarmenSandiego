@@ -80,7 +80,7 @@ public class PistasFragment extends Fragment {
 
     public void mostrarPista(Pista pista){
         AlertDialog.Builder builder;
-        builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
+        builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Light_Dialog_Alert);
         if(pista.getResultadoOrden() == null) {
             builder.setTitle("Pista obtenida: ")
                     .setMessage(pista.getPista())
@@ -104,16 +104,5 @@ public class PistasFragment extends Fragment {
                     .show();
         }
     }
-
-
-    /*Button button = (Button) getView().findViewById(R.id.lugar);
-    String nombreLugar = button.getText().toString();
-
-    int idVillanoSeleccionado = getIdVillano(villanos, nombreVillanoSeleccionado);
-
-    Toast toastOrdenEmitida = Toast.makeText(getContext(), "Orden emitida exitosamente contra: "+ nombreVillanoSeleccionado, Toast.LENGTH_SHORT);
-        toastOrdenEmitida.setGravity(Gravity.CENTER, 0, 0);
-
-        toastOrdenEmitida.show();*/
 }
 
